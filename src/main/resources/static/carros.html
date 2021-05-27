@@ -2,11 +2,12 @@
 <html>
 
 <head>
-    <title>Carros</title>
+    <title>carros</title>
     <meta charset="utf-8" />
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <script type="text/javascript" src="javascript/request.js"> </script>
     <script type="text/javascript" src="javascript/carros.js"> </script>
@@ -14,106 +15,171 @@
 
 <body>
 
-    <nav id="main-nav">
-        <ul class="principal">
-            <a href="carros.html">
-                <li>Carros</li>
-            </a>
-            <a href="cidades.html">
-                <li>Cidades</li>
-            </a>
-            <a href="computadores.html">
-                <li>Computadores</li>
-            </a>
-        </ul>
-    </nav>
+    <div class="container" id="nav">
+        <div class="row">
+            <div class="col">
+                <a href="carros.html" class="nav-item">Carros</a>
+            </div>
+            <div class="col">
+                <a href="cidades.html" class="nav-item">Cidades</a>
+            </div>
+            <div class="col">
+                <a href="computadores.html" class="nav-item">Computadores</a>
+            </div>
+        </div>
+    </div>
 
-    <div id="add-element">
-        <form id="add-form">
-            <div>
-                <label for="add-modelo">Modelo</label>
+    </br>
+    </br>
+
+    <div id="add-element" class="container">
+        <div class="row">
+            <h5>Adicionar novo Elemento:</h5>
+        </div>
+        <form id="add-form" class="row">
+            <div class="col">
+                <label for="add-modelo">modelo</label>
                 <input id="add-modelo" type="text">
             </div>
 
-            <div>
-                <label for="add-marca">Marca</label>
+            <div class="col">
+                <label for="add-marca">marca</label>
                 <input id="add-marca" type="text">
             </div>
 
-            <div>
-                <label for="add-ano">Ano</label>
-                <input id="add-ano" type="number">
-            </div>
-
-            <div>
-                <label for="add-categoria">Categoria</label>
+            <div class="col">
+                <label for="add-categoria">categoria</label>
                 <input id="add-categoria" type="text">
             </div>
 
-            <div>
+            <div class="col">
+                <label for="add-ano">ano</label>
+                <input id="add-ano" type="number">
+            </div>
+
+            <div class="col">
+                </br>
                 <input type="button" value="Add Element" onclick="addElement();">
             </div>
         </form>
     </div>
 
-    <div id="edit-element">
-        <form id="edit-form">
-            <div>
+    </br>
+    </br>
+
+
+    <form id="edit-form" class="container">
+        <div class="row">
+            <h5>Elemento sendo Inspecionado:</h5>
+        </div>
+        <div class="row">
+            <div class="col">
                 <label for="edit-id">Id</label>
+            </div>
+            <div class="col">
+                <label for="edit-modelo">modelo</label>
+            </div>
+
+            <div class="col">
+                <label for="edit-marca">marca</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
                 <input id="edit-id" type="number">
             </div>
-            <div>
-                <label for="edit-modelo">Modelo</label>
+            <div class="col">
                 <input id="edit-modelo" type="text">
             </div>
 
-            <div>
-                <label for="edit-marca">Marca</label>
+            <div class="col">
                 <input id="edit-marca" type="text">
             </div>
+        </div>
 
-            <div>
-                <label for="edit-ano">Ano</label>
-                <input id="edit-ano" type="number">
-            </div>
+        </br>
 
-            <div>
-                <label for="edit-categoria">Categoria</label>
-                <input id="edit-categoria" type="text">
+        <div class="row">
+            <div class="col">
+                <label for="edit-categoria">categoria</label>
             </div>
 
-            <div>
-                <input type="button" value="Edit Element" onclick="editElement();">
+            <div class="col">
+                <label for="edit-ano">ano</label>
             </div>
-            <div>
-                <input type="button" value="Remove Element" onclick="removeElement();">
+
+            <div class="col">
+
             </div>
+
+            <div class="row">
+                <div class="col">
+                    <input id="edit-categoria" type="text">
+                </div>
+
+                <div class="col">
+                    <input id="edit-ano" type="number">
+                </div>
+                <div class="col">
+                    <input type="button" value="Edit Element" onclick="editElement();">
+                    <input type="button" value="Remove Element" onclick="removeElement();">
+                </div>
+
+            </div>
+        </div>
+
+
+    </form>
+    </br>
+    </br>
+
+    <div class="container">
+        <form class="row">
+            <div class="col">
+                <label for="filter-elements">Add Filter By Marca</label>
+            </div>
+            
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
         </form>
+
+        <div class="row">
+            <div class="col">
+                <input id="filter-elements" type="text">
+                <input type="button" value="Filter" onclick="filterElements();">
+            </div>
+        </div>
     </div>
 
-    <div>
-        <form>
-            <label for="filter-elements">Add Filter By Marca</label>
-            <input id="filter-elements" type="text">
+</br>
+</br>
 
-            <input type="button" value="Filter" onclick="filterElements();">
-        </form>
-    </div>
-
-    <div id="main-content">
-        <div id="elements-list">
-
+    <div id="elements-list" class="container">
+        <div class="row">
+            <div class="col">
+                <h6>id</h6>
+            </div>
+            <div class="col">
+                <h6>modelo</h6>
+            </div>
+            <div class="col">
+                <h6>marca</h6>
+            </div>
+            <div class="col">
+                <h6>Edit</h6>
+            </div>
         </div>
     </div>
 
 
 
 
-    <footer id="main-footer">
+    <!-- <footer id="main-footer" class="container">
         <p>Teste Page</p>
 
-    </footer>
-
+    </footer> -->
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"

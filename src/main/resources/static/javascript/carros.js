@@ -1,24 +1,22 @@
 window.onload = function () {
-    callAPI("/api/carros", "GET", createCarros);
+    callAPI("/api/carros", "GET", createcarros);
 }
 
-function createCarros(response, status) {
+function createcarros(response, status) {
 
     if (!(status == 200 || status == 201)) {
-        alert("Cannot Create This Element");
+        alert("Cannot Get The Elements");
         return
     }
 
-    let html = "";
+    let html = "<div class='row' id='row-0'><div class='col'><h6>id</h6></div><div class='col'><h6>modelo</h6></div><div class='col'><h6>marca</h6></div><div class='col'><h6>Edit</h6></div></div>";
     response.forEach(element => {
-        html = html + "<div id='element" + element.id + "'>"                                 //star a line in table of all elements
-        html = html + "<div id='id-" + element.id + "'>";                                     //start a table that is an element
-        html = html + "<div id='id-from-" + element.id + "'>" + element.id + "</div>";        //add element id
-        html = html + "<div id='marca-from-" + element.id + "'>" + element.marca + "</div>";  //add element marca
-        html = html + "<div id='modelo-from-" + element.id + "'>" + element.modelo + "</div>";//add element modelo
-        html = html + "<div id='button-from-" + element.id + "'>" + "<input type='button' value='inspect' onclick='inspect(" + element.id + ");'/>" + "</div>";
+        html = html + "<div id='id-" + element.id + "' class='row'>";                                     //start a table that is an element
+        html = html + "<div id='id-from-" + element.id + "' class='col'>" + element.id + "</div>";        //add element id
+        html = html + "<div id='modelo-from-" + element.id + "' class='col'>" + element.modelo + "</div>";  //add element modelo
+        html = html + "<div id='marca-from-" + element.id + "' class='col'>" + element.marca + "</div>";//add element marca
+        html = html + "<div id='button-from-" + element.id + "' class='col'>" + "<input type='button' value='inspect' onclick='inspect(" + element.id + ");'/>" + "</div>";
         html = html + "</div>";                                                              //end table of element
-        html = html + "</div>";                                                              //end line in table of all elements
     });
     document.getElementById("elements-list").innerHTML = html;
 
@@ -50,31 +48,34 @@ function addElement() {
         "ano": document.getElementById("add-ano").value,
         "categoria": document.getElementById("add-categoria").value
     };
+    console.log(elementToAdd);
     callAPI("/api/carros", "POST", function (response, status) {
         console.log(status);
         if (!(status == 200 || status == 201)) {
             alert("Cannot Add the Object Sent");
         }
+        callAPI("/api/carros", "GET", createcarros);
     }, elementToAdd);
-    callAPI("/api/carros", "GET", createCarros);
 }
 
 function editElement() {
 
     elementToAdd = {
-        "modelo": document.getElementById("edit-modelo").value,
-        "marca": document.getElementById("edit-marca").value,
-        "ano": document.getElementById("edit-ano").value,
-        "categoria": document.getElementById("edit-categoria").value
+        modelo: document.getElementById("edit-modelo").value,
+        marca: document.getElementById("edit-marca").value,
+        ano: document.getElementById("edit-ano").value,
+        categoria: document.getElementById("edit-categoria").value
     };
     url = "/api/carros/" + document.getElementById("edit-id").value;
+    console.log(elementToAdd);
     callAPI(url, "PUT", function (response, status) {
         if (!(status == 200 || status == 201)) {
             alert("Cannot Update to the Object Sent");
         }
-    }, element);
-    inspect(document.getElementById("edit-id").value);
-    callAPI("/api/carros", "GET", createCarros);
+        inspect(document.getElementById("edit-id").value);
+        callAPI("/api/carros", "GET", createcarros);
+    }, elementToAdd);
+
 }
 
 function removeElement() {
@@ -84,17 +85,19 @@ function removeElement() {
         if (!(status == 200 || status == 201)) {
             alert("Cannot Delete the Object");
         }
+        callAPI("/api/carros", "GET", createcarros);
     });
-        document.getElementById("edit-id").value = "";
-        document.getElementById("edit-modelo").value = "";
-        document.getElementById("edit-marca").value = "";
-        document.getElementById("edit-ano").value = "";
-        document.getElementById("edit-categoria").value = "";
-    callAPI("/api/carros", "GET", createCarros);
+    document.getElementById("edit-id").value = "";
+    document.getElementById("edit-modelo").value = "";
+    document.getElementById("edit-marca").value = "";
+    document.getElementById("edit-ano").value = "";
+    document.getElementById("edit-categoria").value = "";
+
+    
 }
 
 function filterElements() {
 
     url = "/api/carros/carro?marca=" + document.getElementById("filter-elements").value;
-    callAPI(url, "GET", createCarros);
+    callAPI(url, "GET", createcarros);
 }
