@@ -4,7 +4,7 @@ function callAPI(url, method, callback, data) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = "json";
     xhr.open(method, url, true);
-    if (method == "POST" || method == "PATCH") {
+    if (method == "POST" || method == "PUT") {
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     }
     xhr.onload = function() {

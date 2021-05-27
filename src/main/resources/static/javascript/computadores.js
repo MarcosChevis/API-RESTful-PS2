@@ -1,24 +1,22 @@
 window.onload = function () {
-    callAPI("/api/caomputadores", "GET", createComputadores);
+    callAPI("/api/computadores", "GET", createComputadores);
 }
 
 function createComputadores(response, status) {
 
     if (!(status == 200 || status == 201)) {
-        alert("Cannot Create This Element");
+        alert("Cannot Get The Elements");
         return
     }
 
-    let html = "";
+    let html = "<div class='row' id='row-0'><div class='col'><h6>id</h6></div><div class='col'><h6>Marca</h6></div><div class='col'><h6>Processador</h6></div><div class='col'><h6>Edit</h6></div></div>";
     response.forEach(element => {
-        html = html + "<div id='element" + element.id + "'>"                                 //star a line in table of all elements
-        html = html + "<div id='id-" + element.id + "'>";                                     //start a table that is an element
-        html = html + "<div id='id-from-" + element.id + "'>" + element.id + "</div>";        //add element id
-        html = html + "<div id='marca-from-" + element.id + "'>" + element.marca + "</div>";  //add element marca
-        html = html + "<div id='processador-from-" + element.id + "'>" + element.processador + "</div>";//add element processador
-        html = html + "<div id='button-from-" + element.id + "'>" + "<input type='button' value='inspect' onclick='inspect(" + element.id + ");'/>" + "</div>";
+        html = html + "<div id='id-" + element.id + "' class='row'>";                                     //start a table that is an element
+        html = html + "<div id='id-from-" + element.id + "' class='col'>" + element.id + "</div>";        //add element id
+        html = html + "<div id='marca-from-" + element.id + "' class='col'>" + element.marca + "</div>";  //add element marca
+        html = html + "<div id='processador-from-" + element.id + "' class='col'>" + element.processador + "</div>";//add element processador
+        html = html + "<div id='button-from-" + element.id + "' class='col'>" + "<input type='button' value='inspect' onclick='inspect(" + element.id + ");'/>" + "</div>";
         html = html + "</div>";                                                              //end table of element
-        html = html + "</div>";                                                              //end line in table of all elements
     });
     document.getElementById("elements-list").innerHTML = html;
 
@@ -50,31 +48,34 @@ function addElement() {
         "qtdRamMB": document.getElementById("add-qtdRamMB").value,
         "tamanhoDiscoGB": document.getElementById("add-tamanhoDiscoGB").value
     };
+    console.log(elementToAdd);
     callAPI("/api/computadores", "POST", function (response, status) {
         console.log(status);
         if (!(status == 200 || status == 201)) {
             alert("Cannot Add the Object Sent");
         }
+        callAPI("/api/computadores", "GET", createComputadores);
     }, elementToAdd);
-    callAPI("/api/computadores", "GET", createComputadores);
 }
 
 function editElement() {
 
     elementToAdd = {
-        "marca": document.getElementById("edit-marca").value,
-        "processador": document.getElementById("edit-processador").value,
-        "qtdRamMB": document.getElementById("edit-qtdRamMB").value,
-        "tamanhoDiscoGB": document.getElementById("edit-tamanhoDiscoGB").value
+        marca: document.getElementById("edit-marca").value,
+        processador: document.getElementById("edit-processador").value,
+        qtdRamMB: document.getElementById("edit-qtdRamMB").value,
+        tamanhoDiscoGB: document.getElementById("edit-tamanhoDiscoGB").value
     };
     url = "/api/computadores/" + document.getElementById("edit-id").value;
+    console.log(elementToAdd);
     callAPI(url, "PUT", function (response, status) {
         if (!(status == 200 || status == 201)) {
             alert("Cannot Update to the Object Sent");
         }
-    }, element);
-    inspect(document.getElementById("edit-id").value);
-    callAPI("/api/computadores", "GET", createComputadores);
+        inspect(document.getElementById("edit-id").value);
+        callAPI("/api/computadores", "GET", createComputadores);
+    }, elementToAdd);
+
 }
 
 function removeElement() {
@@ -84,13 +85,15 @@ function removeElement() {
         if (!(status == 200 || status == 201)) {
             alert("Cannot Delete the Object");
         }
+        callAPI("/api/computadores", "GET", createComputadores);
     });
-        document.getElementById("edit-id").value = "";
-        document.getElementById("edit-marca").value = "";
-        document.getElementById("edit-processador").value = "";
-        document.getElementById("edit-qtdRamMB").value = "";
-        document.getElementById("edit-tamanhoDiscoGB").value = "";
-    callAPI("/api/computadores", "GET", createComputadores);
+    document.getElementById("edit-id").value = "";
+    document.getElementById("edit-marca").value = "";
+    document.getElementById("edit-processador").value = "";
+    document.getElementById("edit-qtdRamMB").value = "";
+    document.getElementById("edit-tamanhoDiscoGB").value = "";
+
+    
 }
 
 function filterElements() {
