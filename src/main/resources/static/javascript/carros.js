@@ -6,7 +6,7 @@ function createcarros(response, status) {
 
     if (!(status == 200 || status == 201)) {
         alert("Cannot Get The Elements");
-        return
+        return;
     }
 
     let html = "<div class='row' id='row-0'><div class='col'><h6>id</h6></div><div class='col'><h6>modelo</h6></div><div class='col'><h6>marca</h6></div><div class='col'><h6>Edit</h6></div></div>";
@@ -75,7 +75,6 @@ function editElement() {
         inspect(document.getElementById("edit-id").value);
         callAPI("/api/carros", "GET", createcarros);
     }, elementToAdd);
-
 }
 
 function removeElement() {
