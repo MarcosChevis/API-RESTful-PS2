@@ -1,0 +1,33 @@
+body{
+    font-family: 'Times New Roman', Times, serif;
+    color: rgb(25, 25, 25);
+    background-color: #EFF5FF;
+    margin-top: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #EFF5FF;
+    font-size: 20px;
+    text-align: center;
+}
+
+#nav {
+    background-color: rgb(25, 25, 25);
+    border-radius: 10px;
+    Justify-content: space-around;
+    text-align: center;
+}
+
+input {
+    outline: none;
+    border-radius: 10px;
+    border: 5px;
+}
+#add-element {
+    border-bottom: 1px solid #000000;
+}
+#edit-form {
+    border-bottom: 1px solid #000000;
+    
+}
